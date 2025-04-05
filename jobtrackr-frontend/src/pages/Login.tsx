@@ -1,28 +1,38 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+console.log("🧭 Inside Login page");
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // 🚀 use React Router for redirection
 
-  async function handleLogin(e: React.FormEvent) {
+  const handleLogin = async (e: React.FormEvent) => {
+    console.log("🔁 handleLogin triggered");
     e.preventDefault();
-    setMessage("");
+    try {
+      const res = await fetch("http://127.0.0.1:8000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const res = await fetch("http://127.0.0.1:8000/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+      if (!res.ok) {
+        setMessage("❌ Login failed. Check your credentials.");
+        return;
+      }
 
-    if (res.ok) {
       const data = await res.json();
       localStorage.setItem("token", data.token);
       setMessage("✅ Login successful!");
-    } else {
-      setMessage("❌ Login failed.");
+      console.log("👉 About to navigate to /");
+      navigate("/");
+
+    } catch {
+      setMessage("⚠️ Network error. Please try again.");
     }
-  }
+  };
 
   return (
     <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
@@ -44,7 +54,7 @@ export default function Login() {
         /><br /><br />
         <button type="submit">Login</button>
       </form>
-      <p>{message}</p>
+      {message && <p style={{ marginTop: "1rem", color: "gray" }}>{message}</p>}
     </div>
   );
 }
