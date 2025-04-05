@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 console.log("🧭 Inside Login page");
 export default function Login() {
@@ -7,6 +8,13 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate(); // 🚀 use React Router for redirection
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/"); // Already logged in? Redirect to dashboard
+    }
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     console.log("🔁 handleLogin triggered");
