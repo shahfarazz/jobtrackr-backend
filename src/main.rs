@@ -3,13 +3,12 @@ mod db;
 mod models;
 mod routes;
 
-use axum::{Router, routing::post};
+use axum::{Router, routing::post, routing::get};
 use std::net::SocketAddr;
 use config::Config;
 use db::connect_to_db;
-use routes::applications::create_application;
+use routes::applications::{create_application, get_applications};
 use std::sync::Arc;
-use axum::routing::get; // Add this import at the top
 
 #[tokio::main]
 async fn main() {
@@ -21,7 +20,7 @@ async fn main() {
 
     // Build the app router
     let app = Router::new()
-        .route("/applications", post(create_application))
+        .route("/applications", post(create_application).get(get_applications))
         .route("/", get(root)) // ← add this line
         .with_state(db.clone()); // Share DB pool across routes
 

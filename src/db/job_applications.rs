@@ -1,5 +1,6 @@
 use sqlx::PgPool;
 use crate::models::job_application::{JobApplication, NewJobApplication};
+use uuid::Uuid;
 
 /// Inserts a new job application into the DB and returns it
 pub async fn insert_job_application(
@@ -22,4 +23,37 @@ pub async fn insert_job_application(
     .await?;
 
     Ok(record)
+}
+/// Retrieves all job applications from the DB
+pub async fn get_job_applications(pool: &PgPool) -> Result<Vec<JobApplication>, sqlx::Error> {
+    let apps = sqlx::query_as!(
+        JobApplication,
+        r#"
+        SELECT * FROM job_applications
+        "#
+    )
+    .fetch_all(pool)
+    .await?;
+
+    Ok(apps)
+}
+
+/// gets a job application by its ID
+pub async fn get_applications_by_user(
+    pool: &PgPool,
+    user_id: Uuid,
+) -> Result<Vec<JobApplication>, sqlx::Error> {
+    let apps = sqlx::query_as!(
+        JobApplication,
+        r#"
+        SELECT * FROM job_applications
+        WHERE user_id = $1
+        ORDER BY applied_at DESC
+        "#,
+        user_id
+    )
+    .fetch_all(pool)
+    .await?;
+
+    Ok(apps)
 }
