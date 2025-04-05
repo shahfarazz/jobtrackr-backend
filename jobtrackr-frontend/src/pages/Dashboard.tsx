@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 
 interface JobApplication {
   id: string;
@@ -23,7 +24,10 @@ export default function Dashboard() {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/applications", {
+    const decoded = jwtDecode<{ sub: string }>(token);
+    const userId = decoded.sub;
+
+    fetch(`http://127.0.0.1:8000/applications?user_id=${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

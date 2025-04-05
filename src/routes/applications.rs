@@ -26,7 +26,10 @@ pub async fn create_application(
     Json(payload): Json<NewJobApplication>,     // Parse incoming JSON into struct
 ) -> impl IntoResponse {
     match insert_job_application(&pool, payload).await {
-        Ok(app) => (StatusCode::OK, Json(app)).into_response(), // ✅ wrapped
+        Ok(app) => {
+            println!("📩 New job app inserted: {:?}", app);
+            (StatusCode::CREATED, Json(app)).into_response() // ✅ wrapped
+        },
         Err(err) => {
             eprintln!("Error inserting: {}", err);
             (StatusCode::INTERNAL_SERVER_ERROR, "Internal Server Error").into_response() // ✅ same type

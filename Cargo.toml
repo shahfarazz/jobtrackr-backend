@@ -18,4 +18,14 @@ bcrypt = "0.15"
 anyhow = "1.0"
 thiserror = "1.0"
 hyper = "1.0"
+argon2 = "0.5"
+rand_core = "0.6"     # Needed by argon2 for salt generation
+tower-http = { version = "0.5", features = ["cors"] }
+http = "0.2"
+
+
+
+[package.metadata.sqlx]
+offline = true
+
 
