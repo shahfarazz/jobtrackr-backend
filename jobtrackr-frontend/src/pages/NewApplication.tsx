@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
+import Navbar from "../components/NavBar";
 
 export default function NewApplication() {
   const [company, setCompany] = useState("");
@@ -38,31 +39,34 @@ export default function NewApplication() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
-      <h2>New Job Application</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          required
-        /><br /><br />
-        <input
-          type="text"
-          placeholder="Position"
-          value={position}
-          onChange={(e) => setPosition(e.target.value)}
-          required
-        /><br /><br />
-        <textarea
-          placeholder="Notes (optional)"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        /><br /><br />
-        <button type="submit">Submit</button>
-      </form>
-      <p>{message}</p>
-    </div>
+   <>
+      <Navbar />
+      <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
+        <h2>New Job Application</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Company"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            required
+          /><br /><br />
+          <input
+            type="text"
+            placeholder="Position"
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+            required
+          /><br /><br />
+          <textarea
+            placeholder="Notes (optional)"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          /><br /><br />
+          <button type="submit">Submit</button>
+        </form>
+        <p>{message}</p>
+      </div>
+    </>
   );
 }

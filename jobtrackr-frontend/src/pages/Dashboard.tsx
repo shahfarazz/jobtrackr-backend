@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
-import { useAuth } from "../context/AuthContext";
+import Navbar from "../components/NavBar";
+import { useAuth } from "../context/AuthContext"; // Importing AuthContext
 
 interface JobApplication {
   id: string;
@@ -17,7 +18,8 @@ interface JobApplication {
 export default function Dashboard() {
   const [apps, setApps] = useState([]);
   const navigate = useNavigate();
-  const {token, setToken} = useAuth();
+  const { token } = useAuth(); // Accessing token from AuthContext
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -39,23 +41,21 @@ export default function Dashboard() {
       .catch((err) => console.error("Error fetching apps:", err));
   }, [navigate, token]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null); // Clear the context state
-    navigate("/login");
-  };
+  
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>📄 Your Job Applications</h2>
-      <button onClick={handleLogout} style={{ marginBottom: "1rem" }}>Logout</button>
-      <ul>
-        {apps.map((app: JobApplication) => (
-          <li key={app.id}>
-            {app.position} @ {app.company}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Navbar />
+      <div style={{ padding: "2rem" }}>
+        <h2>📄 Your Job Applications</h2>
+        <ul>
+          {apps.map((app: JobApplication) => (
+            <li key={app.id}>
+              {app.position} @ {app.company}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
