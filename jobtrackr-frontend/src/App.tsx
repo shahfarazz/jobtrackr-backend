@@ -5,12 +5,14 @@ import NewApplication from "./pages/NewApplication";
 import ProtectedRoute from "./components/ProtectedRoute";
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/new" element={<NewApplication />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="min-h-screen flex flex-col">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/new" element={<NewApplication />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }

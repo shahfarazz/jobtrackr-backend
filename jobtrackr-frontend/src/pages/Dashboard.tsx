@@ -46,16 +46,18 @@ export default function Dashboard() {
   return (
     <>
       <Navbar />
-      <div style={{ padding: "2rem" }}>
-        <h2>📄 Your Job Applications</h2>
-        <ul>
+      <div className="dashboard-container">
+        <h2 className="text-2xl font-bold mb-6">📄 Your Job Applications</h2>
+        <ul className="space-y-4">
           {apps.map((app: JobApplication) => (
-            <li key={app.id}>
-              {app.position} @ {app.company}
+            <li key={app.id} className="job-card">
+              <span className="font-medium">{app.position}</span> @{" "}
+              <span className="text-neutral-300">{app.company}</span>
             </li>
           ))}
         </ul>
       </div>
     </>
   );
+  
 }

@@ -1,3 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@reference "tailwindcss";
+body {
+  @apply bg-zinc-900 text-white min-h-screen;
+}
+
+
+@layer components {
+  /* Container for the entire login page */
+  .login-container {
+    @apply min-h-screen flex items-center justify-center bg-neutral-900;
+  }
+  
+  /* Card for the login form */
+  .login-card {
+    @apply bg-neutral-800 rounded-lg shadow-lg p-8 w-full max-w-md;
+  }
+  
+  /* Styles for inputs */
+  .login-input {
+    @apply w-80 px-4 py-2 rounded bg-neutral-700 border border-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400;
+  }
+  
+  /* Styles for the login button */
+  .login-btn {
+    @apply w-80 px-4 py-2 bg-blue-600 hover:bg-blue-700 transition-colors rounded font-semibold;
+  }
+  
+  /* Style for the feedback message */
+  .login-message {
+    @apply mt-4 text-center text-sm text-gray-300;
+  }
+}
+
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -22,13 +60,7 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+
 
 h1 {
   font-size: 3.2em;

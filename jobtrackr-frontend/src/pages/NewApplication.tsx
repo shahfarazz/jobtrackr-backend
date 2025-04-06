@@ -43,13 +43,14 @@ export default function NewApplication() {
       <Navbar />
       <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
         <h2>New Job Application</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <input
             type="text"
             placeholder="Company"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             required
+            className="login-input"
           /><br /><br />
           <input
             type="text"
@@ -57,11 +58,13 @@ export default function NewApplication() {
             value={position}
             onChange={(e) => setPosition(e.target.value)}
             required
+            className="login-input"
           /><br /><br />
           <textarea
             placeholder="Notes (optional)"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
+            className="login-input"
           /><br /><br />
           <button type="submit">Submit</button>
         </form>

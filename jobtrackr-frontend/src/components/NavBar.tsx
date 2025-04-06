@@ -12,9 +12,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{ display: "flex", gap: "1rem", padding: "1rem", borderBottom: "1px solid #ccc" }}>
+    <nav style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", borderBottom: "1px solid #ccc" }}>
       <Link to="/">Dashboard</Link>
       <button onClick={handleLogout}>Logout</button>
     </nav>
   );
+  
 }

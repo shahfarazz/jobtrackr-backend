@@ -47,26 +47,35 @@ export default function Login() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
-      <h2>Login to JobTrackr</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        /><br /><br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        /><br /><br />
-        <button type="submit">Login</button>
-      </form>
-      {message && <p style={{ marginTop: "1rem", color: "gray" }}>{message}</p>}
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="text-2xl font-bold text-center mb-6">Login to JobTrackr</h2>
+        <form onSubmit={handleLogin} className="flex flex-col items-center space-y-4">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            className="login-input"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            className="login-input"
+          />
+          <button type="submit" className="login-btn">
+            Login
+          </button>
+        </form>
+        {message && <p className="login-message">{message}</p>}
+      </div>
     </div>
   );
+  
+  
+  
 }
