@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext"; // Importing AuthContext
 
 console.log("🧭 Inside Login page");
 export default function Login() {
@@ -8,6 +9,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate(); // 🚀 use React Router for redirection
+  const {setToken } = useAuth();
+
   
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,6 +36,7 @@ export default function Login() {
 
       const data = await res.json();
       localStorage.setItem("token", data.token);
+      setToken(data.token); // Update the context state
       setMessage("✅ Login successful!");
       console.log("👉 About to navigate to /");
       navigate("/");

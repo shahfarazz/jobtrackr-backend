@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
+import { useAuth } from "../context/AuthContext";
 
 interface JobApplication {
   id: string;
@@ -16,6 +17,7 @@ interface JobApplication {
 export default function Dashboard() {
   const [apps, setApps] = useState([]);
   const navigate = useNavigate();
+  const {token, setToken} = useAuth();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -35,10 +37,11 @@ export default function Dashboard() {
       .then((res) => res.json())
       .then((data) => setApps(data))
       .catch((err) => console.error("Error fetching apps:", err));
-  }, []);
+  }, [navigate, token]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setToken(null); // Clear the context state
     navigate("/login");
   };
 
